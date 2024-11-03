@@ -11,21 +11,21 @@ const firebird = require('node-firebird');
 const globals = require('./globals');
 
 let dbOptions = {
-	host: global.IP,
-	port: global.PORT,
-	database: global.DBNAMES[0],
-	user: global.USER,
-	password: global.PASSWORD,
+	host: IP,
+	port: PORT,
+	database: DBNAMES[0],
+	user: USER,
+	password: PASSWORD,
 };
 
 function check_part(part) { return part <= 5 ? 0 : 1; }
 
 module.exports = function (sql_string, part) //choose part & his database
 {
-    globals.CLEAR;
-    globals.CHANGEFONTCOLOR(global.COLORS.reset);
+    globals.CLEAR();
+    globals.CHANGEFONTCOLOR(COLORS.reset);
 
-    dbOptions.database = (__dirname).slice(0, -7) + '\database\\' + global.DBNAMES[check_part(part)];
+    dbOptions.database = (__dirname).slice(0, -7) + '\database\\' + DBNAMES[check_part(part)];
 
     firebird.attach(dbOptions, function(err, db) {
         try
@@ -35,10 +35,10 @@ module.exports = function (sql_string, part) //choose part & his database
                 globals.PRINT('Результат: \n');
                 globals.PRINT(result);
                 db.detach();
-                global.RL.close();
             });
+           
         } catch (err) {
-            global.CLEAR;
+            globals.CLEAR();
             globals.PRINT(err);
         }
     });

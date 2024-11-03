@@ -12,12 +12,12 @@ const globals = require('./globals');
 
 function start() {
   globals.CLEAR();
-  globals.CHANGEFONTCOLOR(global.COLORS.green);
+  globals.CHANGEFONTCOLOR(COLORS.green);
   RL.question(
     'Выбери часть ' +
-      global.PART[0] +
+      PART[0] +
       '-' +
-      global.PART[global.PART.length - 1] +
+      PART[global.PART.length - 1] +
       ': ',
     (part) => {
       try {
@@ -31,35 +31,35 @@ function start() {
 }
 
 function get_tasks(part) {
-  globals.CHANGEFONTCOLOR(global.COLORS.green);
+  globals.CHANGEFONTCOLOR(COLORS.green);
   RL.question(
-    'Выбери задачу 1' + '-' + global.SQLLIST['part' + part].length + ': ',
+    'Выбери задачу 1' + 
+    '-' + 
+    SQLLIST['part' + part].length + 
+    ': ',
     (task) => {
       try {
-        connection(global.SQLLIST['part' + part][task - 1], part);
+        connection(SQLLIST['part' + part][task - 1], part);
       } catch (err) {
         globals.PRINT(err);
         RL.close();
       }
+      get_tasks(part);
     }
   );
+
+  
 }
 
 module.exports = function () {
   globals.CLEAR();
-  globals.CHANGEFONTCOLOR(global.COLORS.green);
+  globals.CHANGEFONTCOLOR(COLORS.green);
 
   start(); //main
 
-  /*
-  process.on('SIGWINCH', () => { //handle onresize of console
-    globals.CLEAR();
-    globals.PRINT(RL.output.columns + 'x' + RL.output.rows);
-  }); 
-  */
   process.on('SIGBREAK', () => { //clear all changes on exit
     globals.CLEAR();
-    globals.CHANGEFONTCOLOR(global.COLORS.reset);
+    globals.CHANGEFONTCOLOR(COLORS.reset);
     process.exit(0);
   }); 
 };
