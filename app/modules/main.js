@@ -1,9 +1,9 @@
 /*  
 	$ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $
-	$									  $
+	$                                     $
 	$	Author: Kiselev Denis (@de0ver)	  $
 	$	Create Date: 03.11.2024 14:51	  $
-	$									  $
+	$                                     $
 	$ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $
 */
 
@@ -51,10 +51,12 @@ module.exports = function () {
 
   start(); //main
 
+  /*
   process.on('SIGWINCH', () => { //handle onresize of console
     globals.CLEAR();
     globals.PRINT(RL.output.columns + 'x' + RL.output.rows);
   }); 
+  */
   process.on('SIGBREAK', () => { //clear all changes on exit
     globals.CLEAR();
     globals.CHANGEFONTCOLOR(global.COLORS.reset);
