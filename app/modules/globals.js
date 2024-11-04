@@ -6,10 +6,8 @@
 	$                                     $
 	$ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $
 */
-
-global.READLINE = require('node:readline');
-global.RL = global.READLINE.createInterface({ input: process.stdin, output: process.stdout });
-global.PART = [1, 2, 3, 4, 5, 6]; 
+global.PATH = require('path');
+global.PART = { part1: '1 Практика.pdf', part2: '2 Практика.pdf', part3: '3 Практика.pdf', part4: '4 Практика.pdf', part5: '5 Практика.pdf', part6: '6 Практика.pdf',} 
 global.DBNAMES = ['base01.fdb', 'base02.fdb']; //check folder database and get names (0_-)
 global.IP = '127.0.0.1';
 global.PORT = 3050;
@@ -28,7 +26,9 @@ global.COLORS = { //https://dvmn.org/encyclopedia/python_strings/ansi-codes/
 };
 global.SQLLIST = {
     part1: [ //practicum 1
-        "select * from SALESPEOPLE",
+        "select SNAME, COMM from SALESPEOPLE",
+        "select ONUM, ODATE, AMT from ORDERS",
+        "select CITY, SNAME, COMM from SALESPEOPLE"
     ],
     part2: [ //practicum 2
         "select * from SALESPEOPLE",
@@ -59,7 +59,6 @@ global.SQLLIST = {
         "select * from SALESPEOPLE",
     ],
 };
-    
 
 module.exports = {
     PRINT: (text) => { return console.log(text); },
