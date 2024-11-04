@@ -7,20 +7,20 @@
 	$ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $
 */
 const {app, BrowserWindow, screen} = require('electron');
-const path = require('path');
+const globals = require('./globals');
 
 const createWindow = () => {
     const win = new BrowserWindow({
         width: screen.getPrimaryDisplay().workAreaSize.width,
         height: screen.getPrimaryDisplay().workAreaSize.height,
         webPreferences: {
-            preload: path.join(__dirname, 'preload.js'),
+            preload: PATH.join(__dirname, 'preload.js'),
             nodeIntegration: true,
         }
     });
     win.loadFile('./app/pages/index.html');
 
-    win.removeMenu();
+    //win.removeMenu();
 }
 
 app.whenReady().then(() => createWindow());

@@ -19,22 +19,24 @@ let dbOptions = {
 
 function check_part(part) { return 0; }//part <= 5 ? 0 : 1; }
 
-module.exports = function (sql_string, part) //choose part & his database
-{
-    dbOptions.database = (__dirname).slice(0, -7) + '\database\\' + DBNAMES[check_part(part)];
+module.exports = async function (sql_string, part) {
+    return new Promise((resolve, reject) => {
+        dbOptions.database = (__dirname).slice(0, -7) + '\\database\\' + DBNAMES[check_part(part)];
 
-    firebird.attach(dbOptions, function(err, db) {
-        try
-        {
-            globals.PRINT('Promise...');
-            db.execute(sql_string.toString(), function (err, result) {
-                globals.PRINT('Result: \n');
-                globals.PRINT(result);
+        firebird.attach(dbOptions, function (err, db) {
+            if (err) {
+                return reject(err);
+            }
+
+            db.query(sql_string.toString(), function (err, result) {
+                if (err) {
+                    db.detach();
+                    return reject(err);
+                }
+
+                resolve(result);
                 db.detach();
             });
-           
-        } catch (err) {
-            globals.PRINT(err);
-        }
+        });
     });
-}
+};

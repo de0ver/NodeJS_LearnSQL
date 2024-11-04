@@ -59,10 +59,3 @@ global.SQLLIST = {
         "select * from SALESPEOPLE",
     ],
 };
-
-module.exports = {
-    PRINT: (text) => { return console.log(text); },
-    CLEAR: () => { return console.log('\x1bc'); },
-    CHANGEFONTCOLOR: (color) => { return console.log(color); },
-    CHANGEBGCOLOR: (color) => { return console.log(color); },
-}
