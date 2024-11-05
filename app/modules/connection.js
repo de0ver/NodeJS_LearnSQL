@@ -6,37 +6,40 @@
 	$                                     $
 	$ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $
 */
-const firebird = require('node-firebird');
-const globals = require('./globals');
+const firebird = require("node-firebird");
+const globals = require("./globals");
 
 let dbOptions = {
-	host: IP,
-	port: PORT,
-	database: DBNAMES[0],
-	user: USER,
-	password: PASSWORD,
+  host: IP,
+  port: PORT,
+  database: DBNAMES[0],
+  user: USER,
+  password: PASSWORD,
 };
 
-function check_part(part) { return 0; }//part <= 5 ? 0 : 1; }
+function check_part(part) {
+  return 0;
+} //part <= 5 ? 0 : 1; }
 
 module.exports = async function (sql_string, part) {
-    return new Promise((resolve, reject) => {
-        dbOptions.database = (__dirname).slice(0, -7) + '\\database\\' + DBNAMES[check_part(part)];
+  return new Promise((resolve, reject) => {
+    dbOptions.database =
+      __dirname.slice(0, -7) + "\\database\\" + DBNAMES[check_part(part)];
 
-        firebird.attach(dbOptions, function (err, db) {
-            if (err) {
-                return reject(err);
-            }
+    firebird.attach(dbOptions, function (err, db) {
+      if (err) {
+        return reject(err);
+      }
 
-            db.query(sql_string.toString(), function (err, result) {
-                if (err) {
-                    db.detach();
-                    return reject(err);
-                }
+      db.query(sql_string.toString(), function (err, result) {
+        if (err) {
+          db.detach();
+          return reject(err);
+        }
 
-                resolve(result);
-                db.detach();
-            });
-        });
+        resolve(result);
+        db.detach();
+      });
     });
+  });
 };

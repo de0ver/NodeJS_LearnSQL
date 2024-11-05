@@ -6,13 +6,42 @@
 body {
     font-family: 'Root-UI';
     justify-items: center;
-    
+    overflow-y: auto;
+}
+
+h1 {
+  font-size: 24px;
+}
+
+h2 {
+  font-size: 22px;
+}
+
+h3 {
+  font-size: 20px;
 }
 
 form {
-  margin: 1%;
+  margin-top: 6%;
   background: #444;
   padding: 3%;
   border-radius: 15px;
+  width: 100%;
   max-height: fit-content;
+}
+
+.table_header {
+  background-color: black;
+}
+
+.table_body {
+  background-color: #333;
+}
+
+footer {
+  width: 100%;
+  
+  h4 {
+    font-size: 16px;
+  }
 }
