@@ -1,37 +1,26 @@
 /*  
 	$ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $
 	$                                     $
-	$	Author: Kiselev Denis (@de0ver)	  $
-	$	Create Date: 03.11.2024 14:50	  $
+	$   Author: Kiselev Denis (@de0ver)   $
+	$   Create Date: 03.11.2024 14:50     $
 	$                                     $
-	$ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $
+	$ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ 
 */
 global.PATH = require("path");
-global.PART = {
-  part1: "1 Практика.pdf",
-  part2: "2 Практика.pdf",
-  part3: "3 Практика.pdf",
-  part4: "4 Практика.pdf",
-  part5: "5 Практика.pdf",
-  part6: "6 Практика.pdf",
-};
 global.DBNAMES = ["base01.fdb", "base02.fdb"]; //check folder database and get names (0_-)
+global.PART = {
+  part1: ["1 Практика.pdf", DBNAMES[0]],
+  part2: ["2 Практика.pdf", DBNAMES[0]],
+  part3: ["3 Практика.pdf", DBNAMES[0]],
+  part4: ["4 Практика.pdf", DBNAMES[0]],
+  part5: ["5 Практика.pdf", DBNAMES[0]],
+  part6: ["6 Практика.pdf", DBNAMES[1]],
+};
 global.IP = "127.0.0.1";
 global.PORT = 3050;
 global.USER = "SYSDBA";
 global.PASSWORD = "masterkey";
 global.ENCODING = "UTF8";
-global.COLORS = {
-  //https://dvmn.org/encyclopedia/python_strings/ansi-codes/
-  green: "\x1b[32m",
-  red: "\x1b[31m",
-  yellow: "\x1b[33m",
-  blue: "\x1b[34m",
-  white: "\u001b[37m",
-  reset: "\x1b[0m",
-  bggreen: "\u001b[42m",
-  bgred: "\u001b[41m",
-};
 global.SQLLIST = {
   part1: [
     //practicum 1

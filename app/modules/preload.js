@@ -1,10 +1,10 @@
 /*  
 	$ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $
 	$                                     $
-	$	Author: Kiselev Denis (@de0ver)	  $
-	$	Create Date: 03.11.2024 15:24	  $
+	$   Author: Kiselev Denis (@de0ver)   $
+	$   Create Date: 03.11.2024 15:24     $
 	$                                     $
-	$ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $
+	$ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ 
 */
 const connection = require("./connection");
 const globals = require("./globals");
@@ -23,8 +23,7 @@ function changeTasks(part, element) {
 }
 
 function changePDFLink(part) {
-  window.document.getElementById("getPDF").href =
-    "file:///" + PATH.join(__dirname, "./pdf/", PART[part]);
+  window.document.getElementById("getPDF").href = "file:///" + PATH.join(__dirname, "./pdf/", PART[part][0]);
   return 0;
 }
 
@@ -57,44 +56,31 @@ function createTable(table, element) {
       );
     }
   }
+
+  return 0;
 }
 
-window.addEventListener("DOMContentLoaded", async () => {
+async function getObject(part, task) {
+  return { object: await connection(SQLLIST[part][task], part)};
+}
+
+window.addEventListener("DOMContentLoaded", () => {
   let selectedPart = window.document.getElementById("selectPart");
   let selectedTask = window.document.getElementById("selectTask");
   let taskResult = window.document.getElementById("taskResult");
 
-  selectedPart.selectedIndex = 0;
-  selectedTask.selectedIndex = 0;
+  selectedPart.selectedIndex = selectedTask.selectedIndex = 0;
   changePDFLink(selectedPart.value);
   changeTasks(selectedPart.value, selectedTask);
-  createTable(
-    {
-      object: await connection(SQLLIST[selectedPart.value][selectedTask.value]),
-    },
-    taskResult
-  );
+  createTable(getObject(selectedPart.value, selectedTask.value), taskResult);
 
-  selectedPart.onchange = async function () {
+  selectedPart.onchange = function () {
     changeTasks(selectedPart.value, selectedTask);
     changePDFLink(selectedPart.value);
-    return createTable(
-      {
-        object: await connection(
-          SQLLIST[selectedPart.value][selectedTask.value]
-        ),
-      },
-      taskResult
-    );
+    return createTable(getObject(selectedPart.value, selectedTask.value), taskResult);
   };
-  selectedTask.onchange = async function () {
-    return createTable(
-      {
-        object: await connection(
-          SQLLIST[selectedPart.value][selectedTask.value]
-        ),
-      },
-      taskResult
-    );
+
+  selectedTask.onchange = function () {
+    return createTable(getObject(selectedPart.value, selectedTask.value), taskResult);
   };
 });

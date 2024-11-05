@@ -1,10 +1,10 @@
 /*  
 	$ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $
 	$                                     $
-	$	Author: Kiselev Denis (@de0ver)	  $
-	$	Create Date: 03.11.2024 14:52	  $
+	$   Author: Kiselev Denis (@de0ver)   $
+	$   Create Date: 03.11.2024 14:52     $
 	$                                     $
-	$ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $
+	$ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ $ 
 */
 const firebird = require("node-firebird");
 const globals = require("./globals");
@@ -17,14 +17,13 @@ let dbOptions = {
   password: PASSWORD,
 };
 
-function check_part(part) {
-  return 0;
-} //part <= 5 ? 0 : 1; }
+function checkPart(part) {
+  return PART[part][1];
+}
 
 module.exports = async function (sql_string, part) {
   return new Promise((resolve, reject) => {
-    dbOptions.database =
-      __dirname.slice(0, -7) + "\\database\\" + DBNAMES[check_part(part)];
+    dbOptions.database = __dirname.slice(0, -7) + "\\database\\" + DBNAMES[checkPart(part)];
 
     firebird.attach(dbOptions, function (err, db) {
       if (err) {
