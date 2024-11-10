@@ -62,3 +62,4 @@ global.SQLLIST = {
     "select * from SALESPEOPLE",
   ],
 };
+global.GIVEMEJOKE = "select FIRST 1 * from JOKES ORDER BY rand()";

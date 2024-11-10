@@ -21,9 +21,12 @@ function checkPart(part) {
   return PART[part][1];
 }
 
-module.exports = async function (sql_string, part) {
+module.exports = async function (sql_string, part = null) {
   return new Promise((resolve, reject) => {
-    dbOptions.database = __dirname.slice(0, -7) + "\\database\\" + DBNAMES[checkPart(part)];
+    if (part !== null)
+      dbOptions.database = __dirname.slice(0, -7) + "\database\\" + checkPart(part);
+    else 
+      dbOptions.database = __dirname.slice(0, -7) + "\database\\jokes.fdb";
 
     firebird.attach(dbOptions, function (err, db) {
       if (err) {
